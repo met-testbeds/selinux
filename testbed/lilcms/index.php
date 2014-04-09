@@ -89,7 +89,7 @@ File: <?php echo $_POST["select"] ?> <INPUT NAME="editing" TYPE="hidden" ID="edi
 <BR /> <TEXTAREA NAME="textfield" COLS="60" ROWS="10"><?php echo $text ?></TEXTAREA> 
 <BR /> <INPUT NAME="Submit" TYPE="submit" ID="Submit" VALUE="Write" /></TD></TR> 
 <TR> <TD ALIGN="center" BGCOLOR="#FFFFFF"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Publish
-folder is <?php if (!is_writable("../backup")) {echo "protected!";} else {echo "ok.";}?></FONT> 
+folder is <?php if (!is_writable("./publish")) {echo "protected!";} else {echo "ok.";}?></FONT> 
 <BR /> <INPUT NAME="Submit" TYPE="submit" ID="Submit" VALUE="Publish" /></TR>
 </TABLE></TD></TR></TABLE></form>
 </body>
