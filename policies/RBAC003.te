@@ -1,8 +1,8 @@
 ##########################
-#policyID:RBAC001.pe
+#policyID:RBAC003.pe
 ##########################
 
-policy_module(lilcmsRBAC,1.0.0)
+policy_module(lilcmsRBAC,3.0.0)
 
 ##########################
 #
