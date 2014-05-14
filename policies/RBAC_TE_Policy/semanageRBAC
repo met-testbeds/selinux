@@ -1,0 +1,16 @@
+user -a -L s0 -r s0-s0:c0.c1023 -R 'unconfined_r staff_r sysadm_r system_r testrole_r' admin_u
+user -a -L s0 -r s0-s0:c0.c1023 -R 'system_r unconfined_r EN_sub_r' s11_u
+user -a -L s0 -r s0-s0:c0.c1023 -R 'system_r unconfined_r SN_sub_r' s14_u
+user -a -L s0 -r s0-s0:c0.c1023 -R 'system_r unconfined_r GN_sub_r' s1_u
+user -a -L s0 -r s0-s0:c0.c1023 -R 'system_r unconfined_r contributor_r' s21_u
+user -a -L s0 -r s0-s0:c0.c1023 -R 'system_r unconfined_r publisher_r' s25_u
+
+
+login -a -s admin_u -r 's0-s0:c0.c1023' admin
+login -a -s root -r 's0-s0:c0.c1023' root
+login -a -s s1_u -r 's0-s0:c0.c1023' s1
+login -a -s s11_u -r 's0-s0:c0.c1023' s11
+login -a -s s14_u -r 's0-s0:c0.c1023' s14
+login -a -s s21_u -r 's0-s0:c0.c1023' s21
+login -a -s s25_u -r 's0-s0:c0.c1023' s25
+
