@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+# Filename : create_lilcms_subjects
+
+from os import *
+
+
+subjects= []
+for i in range(25):
+    char = 's' + str(i+1)
+    subjects.append(char)
+
+GN_sub = subjects[0:9]
+EN_sub = subjects[10:12]
+SN_sub = subjects[13:17]
+ESN_sub = subjects[18:19]
+contributors = subjects[20:23]
+publishers = subjects[24::]
+
+for s in GN_sub:
+    cmd1 = "semanage user -a -L s0 -r s0-s0:c0.c1023 -R 'staff_r sysadm_r system_r unconfined_r' " + s + "_u"
+    cmd2 = "useradd -m -p `openssl passwd -1 " + s + "` -Z " + s + "_u -g GN_sub " + s
+    system(cmd1)
+    system(cmd2)
+
+for s in EN_sub
