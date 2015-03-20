@@ -1,0 +1,186 @@
+policy_module(lilcmsTE,1.0.0)
+
+
+########################################
+#
+# Declarations
+#
+
+gen_require(`
+                type unconfined_t;
+		role unconfined_r;
+        ')
+
+##########################
+### Domains 
+
+# General News Subscribers Type: GN_sub_t
+
+type GN_sub_t;
+role unconfined_r types GN_sub_t;
+domain_type(GN_sub_t)
+
+# Sport News Subscribers Type: SN_sub_t
+
+type SN_sub_t;
+role unconfined_r types SN_sub_t;
+domain_type(SN_sub_t)
+
+# Economic News Subscribers Type: EN_sub_t
+
+type EN_sub_t;
+role unconfined_r types EN_sub_t;
+domain_type(EN_sub_t)
+
+# Economic & Sport News Subscribers Type: ESN_sub_t
+
+type ESN_sub_t;
+role unconfined_r types ESN_sub_t;
+domain_type(ESN_sub_t)
+
+
+# Contributors type: contributor_t
+
+type contributor_t;
+role unconfined_r types contributor_t;
+domain_type(contributor_t)
+
+#Publishers type: publisher_t
+
+type publisher_t;
+role unconfined_r types publisher_t;
+domain_type(publisher_t)
+
+
+##########################
+### Objects' Types
+
+# General news posts type: GN_post_t
+
+type GN_post_public_t;
+#files_type(GN_post_public_t)
+type GN_post_t;
+#files_type(GN_post_t)
+
+# Sport news posts type: SN_post_t
+
+type SN_post_public_t;
+#files_type(SN_post_public_t)
+type SN_post_t;
+#files_type(SN_post_t)
+
+# Economic news posts type: EN_post_t
+
+type EN_post_public_t;
+#files_type(EN_post_public_t)
+type EN_post_t;
+#files_type(EN_post_t)
+
+############################
+### Permissions
+
+# 1) GN_sub_t read GN_post_public_t
+
+allow GN_sub_t GN_post_public_t:file { read getattr open };
+
+# 2) SN_sub_t read GN_post_public_t
+
+allow SN_sub_t GN_post_public_t:file { read getattr open };
+
+# 3) EN_sub_t read GN_post_public_t
+
+allow EN_sub_t GN_post_public_t:file { read getattr open };
+
+# 4) ESN_sub_t read GN_post_public_t
+
+allow ESN_sub_t GN_post_public_t:file { read getattr open };
+
+# 5) contributor_t read GN_post_public_t
+
+allow contributor_t GN_post_public_t:file { read getattr open };
+
+# 6) publisher_t read GN_post_public_t
+
+allow publisher_t GN_post_public_t:file { read getattr open };
+
+
+
+# 7) SN_sub_t read SN_post_public_t
+
+allow SN_sub_t SN_post_public_t:file { read getattr open };
+
+# 8) ESN_sub_t read SN_post_public_t
+
+allow ESN_sub_t SN_post_public_t:file { read getattr open };
+
+# 9) contributor_t read SN_post_public_t
+
+allow contributor_t SN_post_public_t:file { read getattr open };
+
+# 10) publisher_t read SN_post_public_t
+
+allow publisher_t SN_post_public_t:file { read getattr open };
+
+
+# 11) EN_sub_t read EN_post_public_t
+
+allow EN_sub_t EN_post_public_t:file { read getattr open };
+
+# 12) ESN_sub_t read EN_post_public_t
+
+allow ESN_sub_t EN_post_public_t:file { read getattr open };
+
+# 13) contributor_t read EN_post_public_t
+
+allow contributor_t EN_post_public_t:file { read getattr open };
+
+# 14) publisher_t read EN_post_public_t
+
+allow publisher_t EN_post_public_t:file { read getattr open };
+
+
+
+# 15) contributor_t write GN_post_t
+
+allow contributor_t GN_post_t:file { read write getattr open };
+
+# 16) contributor_t write EN_post_t
+
+allow contributor_t EN_post_t:file { read write getattr open };
+
+# 17) contributor_t write SN_post_t
+
+allow contributor_t SN_post_t:file { read write getattr open };
+
+
+
+# 18) publisher_t write GN_post_t
+
+allow publisher_t GN_post_t:file { read write getattr open };
+
+# 19) publisher_t write EN_post_t
+
+allow publisher_t EN_post_t:file { read write getattr open };
+
+# 20) publisher_t write SN_post_t
+
+allow publisher_t SN_post_t:file { read write getattr open };
+
+
+
+
+# 21) publisher_t publish GN_post_t
+
+allow publisher_t GN_post_public_t:file { relabelto };
+allow publisher_t GN_post_t:file { relabelfrom };
+
+# 22) publisher_t publish EN_post_t
+
+allow publisher_t EN_post_public_t:file { relabelto };
+allow publisher_t EN_post_t:file { relabelfrom };
+
+# 23) publisher_t publish SN_post_t
+
+allow publisher_t SN_post_public_t:file { relabelto };
+allow publisher_t SN_post_t:file { relabelfrom };
+
