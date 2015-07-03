@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+# Filename : create_lilcms_subjects
+
+from os import *
+
+subjects= []
+for i in range(225):
+    char = 's' + str(i+1)
+    subjects.append(char)
+
+for s in subjects:
+    cmd2 = "useradd -m -p `openssl passwd -1 " + s + "` -Z " + s + "_u " + s
+    system(cmd2)
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+make -f Makefile lilcmsTE.pp
+sudo semodule -i lilcmsTE.pp

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+user=`id -Z | cut -d":" -f1`
+
+context=`ls -Z $1 | cut -d" " -f4`
+
+ctype=`echo "$context" | cut -d":" -f3`
+
+file=`echo "$1" | rev | cut -d"/" -f1 | rev`
+
+if [ $ctype = "GN_post_t" ]
+then
+        nctype="GN_post_public_t"
+
+elif [ $ctype = "EN_post_t" ]
+then
+        nctype="EN_post_public_t"
+
+elif [ $ctype = "SN_post_t" ]
+then
+        nctype="SN_post_public_t"
+else
+        nctype=$ctype
+fi
+ncontext=$user":object_r:"$nctype":s0"
+nfile="/opt/lampp/htdocs/lilcms/publish/"$file
+
+if [ -e "$nfile" ]
+then
+	cp -v --context=$ncontext  $1 /opt/lampp/htdocs/lilcms/publish/
+
+else
+	cp -v --preserve=mode --context=$ncontext  $1 /opt/lampp/htdocs/lilcms/publish/
+fi

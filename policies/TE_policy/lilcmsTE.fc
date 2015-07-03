@@ -1,22 +1,26 @@
-/var/www/html/posts/GN_f1			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f2			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f3			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f4			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f5			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f6			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f7			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f8			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f9			gen_context(system_u:object_r:GN_post_t,s0)
-/var/www/html/posts/GN_f10			gen_context(system_u:object_r:GN_post_t,s0)
+/opt/lampp/htdocs/lilcms/content/o.*GN			gen_context(system_u:object_r:GN_post_t,s0)
 
-/var/www/html/posts/EN_f11			gen_context(system_u:object_r:EN_post_t,s0)
-/var/www/html/posts/EN_f12			gen_context(system_u:object_r:EN_post_t,s0)
-/var/www/html/posts/EN_f13			gen_context(system_u:object_r:EN_post_t,s0)
-/var/www/html/posts/EN_f14			gen_context(system_u:object_r:EN_post_t,s0)
-/var/www/html/posts/EN_f15			gen_context(system_u:object_r:EN_post_t,s0)
 
-/var/www/html/posts/SN_f16			gen_context(system_u:object_r:SN_post_t,s0)
-/var/www/html/posts/SN_f17			gen_context(system_u:object_r:SN_post_t,s0)
-/var/www/html/posts/SN_f18			gen_context(system_u:object_r:SN_post_t,s0)
-/var/www/html/posts/SN_f19			gen_context(system_u:object_r:SN_post_t,s0)
-/var/www/html/posts/SN_f20			gen_context(system_u:object_r:SN_post_t,s0)
+/opt/lampp/htdocs/lilcms/content/o.*EN			gen_context(system_u:object_r:EN_post_t,s0)
+
+
+/opt/lampp/htdocs/lilcms/content/o.*SN			gen_context(system_u:object_r:SN_post_t,s0)
+
+
+/opt/lampp/htdocs/lilcms/publish/o.*GN			gen_context(system_u:object_r:GN_post_public_t,s0)
+
+
+/opt/lampp/htdocs/lilcms/publish/o.*EN			gen_context(system_u:object_r:EN_post_public_t,s0)
+
+
+/opt/lampp/htdocs/lilcms/publish/o.*SN			gen_context(system_u:object_r:SN_post_public_t,s0)
+
+/opt/lampp/htdocs/lilcms/publish		-d		gen_context(system_u:object_r:publish_folder_t,s0)
+/opt/lampp/htdocs/lilcms/content		-d		gen_context(system_u:object_r:content_folder_t,s0)
+
+/usr/local/bin/read_cms							gen_context(system_u:object_r:readCMS_exec_t,s0)
+
+/usr/local/bin/write_cms						gen_context(system_u:object_r:writeCMS_exec_t,s0)
+
+/usr/local/bin/publish_cms						gen_context(system_u:object_r:publishCMS_exec_t,s0)
+

@@ -1,1 +1,217 @@
 ## <summary></summary>
+
+
+
+########################################
+# <summary>
+# 	Create types for lilcms actions (exec_t and _t)
+# </summary>
+# <param name="action">
+# 	<summary>
+# 	The prefix of the lilcms action
+# 	</summary>
+# </param>
+interface(`lilcms_action',`
+	type $1_t;
+	type $1_exec_t;
+	userdom_user_application_domain($1_t, $1_exec_t)
+
+	allow $1_t bin_t:file { execute execute_no_trans };
+	allow $1_t proc_t:file { read getattr open };
+	allow $1_t user_devpts_t:chr_file { read write getattr };
+')
+
+########################################
+# <summary>
+# 	Create types for lilcms read actions (exec_t and _t)
+# </summary>
+# <param name="action">
+# 	<summary>
+# 	The prefix of the lilcms action
+# 	</summary>
+# </param>
+interface(`read_action',`
+	type $1_t;
+	userdom_user_application_domain($1_t, readCMS_exec_t)
+
+	allow $1_t bin_t:file { execute execute_no_trans };
+	allow $1_t proc_t:file { read getattr open };
+	allow $1_t user_devpts_t:chr_file { read write getattr };
+')
+
+########################################
+# <summary>
+# 	Generate lilcms user domain
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`lilcms_user',`
+	role $1_r;
+	userdom_unpriv_user_template($1)
+	files_list_var($1_t)
+')
+
+########################################
+# <summary>
+# 	Allow user to execute a specific action
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+# <param name="action">
+# 	<summary>
+# 	The prefix of the lilcms action
+# 	</summary>
+# </param>
+interface(`allow_user_exec_action',`
+	role $1_r types $2_t;
+	domtrans_pattern($1_t, $2_exec_t, $2_t)
+')
+
+
+########################################
+# <summary>
+# 	Give a user the rights of a General News Subscriber
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_GN_subscriber',`
+	role $1_r types readGN_t;
+	domtrans_pattern($1_t, readCMS_exec_t, readGN_t)
+	allow $1_t publish_folder_t:dir list_dir_perms;
+	allow $1_t GN_post_public_t:file getattr;
+')
+
+########################################
+# <summary>
+# 	Give a user the rights of a Sport News Subscriber
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_SN_subscriber',`
+	role $1_r types readSN_t;
+	domtrans_pattern($1_t, readCMS_exec_t, readSN_t)
+	allow $1_t publish_folder_t:dir list_dir_perms;
+	allow $1_t GN_post_public_t:file getattr;
+	allow $1_t SN_post_public_t:file getattr;
+')
+
+########################################
+# <summary>
+# 	Give a user the rights of an Economic News Subscriber
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_EN_subscriber',`
+	role $1_r types readEN_t;
+	domtrans_pattern($1_t, readCMS_exec_t, readEN_t)
+	allow $1_t GN_post_public_t:file getattr;
+	allow $1_t EN_post_public_t:file getattr;
+')
+
+
+########################################
+# <summary>
+# 	Give a user the rights of (Sport+Economic) News Subscriber
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_ESN_subscriber',`
+	role $1_r types readESN_t;
+	domtrans_pattern($1_t, readCMS_exec_t, readESN_t)
+	allow $1_t publish_folder_t:dir list_dir_perms;
+	allow $1_t lilcms_public_type:file getattr;
+')
+
+
+########################################
+# <summary>
+# 	Give a user the rights of a Contributor
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_contributor',`
+	role $1_r types readALL_t;
+	domtrans_pattern($1_t, readCMS_exec_t, readALL_t)
+
+	allow_user_exec_action($1,writeCMS)
+
+	allow $1_t publish_folder_t:dir list_dir_perms;	
+	allow $1_t content_folder_t:dir list_dir_perms;
+	allow $1_t lilcms_public_type:file getattr;
+	allow $1_t lilcms_post_type:file getattr;
+')
+
+########################################
+# <summary>
+# 	Give a user the rights of a Publisher
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`allow_publisher',`
+	allow_contributor($1)
+
+	allow_user_exec_action($1,publishCMS)
+')
+
+
+########################################
+# <summary>
+# 	publish_t additional allow rules
+# </summary>
+# <param name="publish_t">
+# 	<summary>
+# 	Publish type
+# 	</summary>
+# </param>
+interface(`publish_extra',`
+	allow $1 self:process setfscreate;
+	#allow $1 file_context_t:dir search;
+	#allow $1 file_context_t:file { read getattr open };
+	#allow $1 security_t:dir read;
+	#allow $1 security_t:file write;
+	#allow $1 security_t:security { check_context compute_create };
+	allow $1 passwd_file_t:file { read getattr open };
+')
+
+########################################
+# <summary>
+# 	Generate User
+# </summary>
+# <param name="user">
+# 	<summary>
+# 	The prefix of the lilcms user
+# 	</summary>
+# </param>
+interface(`genrate_user',`
+	gen_user($1_u, user, $1_r, s0, s0)
+')
+
+
+
+
+
+

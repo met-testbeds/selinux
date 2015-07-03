@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+from os import *
+
+subjects= []
+for i in range(225):
+    char = 's' + str(i+1)
+    subjects.append(char)
+
+for s in subjects:
+    cmd1 = "cp /etc/selinux/targeted/contexts/users/user_u /etc/selinux/targeted/contexts/users/" + s + "_u"
+    cmd2 = "sed -i 's/user/" + s + "/g' /etc/selinux/targeted/contexts/users/" + s + "_u"
+
+    system(cmd1)
+    system(cmd2)
